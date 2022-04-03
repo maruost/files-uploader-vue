@@ -5,7 +5,7 @@
       <SavedObjects/>
       <ObjectsMenu/>
       <div class="modal-form">
-        <p v-if="!objects.length">Создайте или веберите объект, чтобы добавить файлы</p>
+        <p v-if="!objects.length">Создайте или выберите объект, чтобы добавить файлы</p>
         <template v-for="object in objects">
           <ObjectForm :id="object.name" :key="object.name"/>
         </template>
