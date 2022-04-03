@@ -1,8 +1,10 @@
 <template>
   <li class="menu-item" :key='id' :class="className" @click="onClickMenuItem">
     <a>{{name}}</a>
-    <slot></slot>
-    <button v-if="deleteButton" @click.stop='deleteMenuItem' class="menu-item-button"></button>
+    <div class="menu-item-additional">
+      <slot></slot>
+      <button v-if="deleteButton" @click.stop='deleteMenuItem' class="menu-item-button"></button>
+    </div>
   </li>
 </template>
 
@@ -54,6 +56,12 @@ export default {
   background-color: transparent;
   border: none;
   cursor: pointer;
+  margin-left: 5px;
+}
+
+.menu-item-additional {
+  display: flex;
+  justify-content: space-between;
 }
 
 .active {

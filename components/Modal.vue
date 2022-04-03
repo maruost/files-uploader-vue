@@ -1,8 +1,8 @@
 <template>
   <div class="modal">
     <div class="modal-container">
-      <div class="modal-close-icon-container" @click="onCloseModal">
-        <div class="modal-close-icon">
+      <div class="modal-close-icon-container">
+        <div class="modal-close-icon" @click="onCloseModal">
         </div>
       </div>
       <div class="modal-content">
