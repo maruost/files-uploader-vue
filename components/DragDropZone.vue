@@ -66,7 +66,7 @@ export default {
       this.uploadFiles(files, 2, this.handleUploadFile, this.handleUploadAll);
     },
     handleFilesToUpload(files) {
-      const filesToUpload = files.map(file => {
+      const filesToUpload = files.map(file => { // нет ограничения на загрузку одинаковых файлов
         return {
           name: uuidv4(),
           file: file
@@ -131,6 +131,7 @@ export default {
     handleInputChange(e) {
       const files = this.handleFilesToUpload([...e.target.files]);
       this.uploadFiles(files, 2, this.handleUploadFile, this.handleUploadAll);
+      e.target.value = ''
     }
   }
 }

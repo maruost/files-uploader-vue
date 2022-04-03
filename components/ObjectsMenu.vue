@@ -8,7 +8,9 @@
                   :onMenuItemClick="chooseObject"
                   :deleteButton="true"
                   :key="object.name"
-                  :class="chosenObject.name === object.name ? 'active' : ''"/>
+                  :class="chosenObject.name === object.name ? 'active' : ''">
+          <div v-if="object.files_ids.length" class="objects-menu-item-counter">{{object.files_ids.length}}</div>
+        </MenuItem>
       </template>
     </Menu>
     <Button :on-click='addObject' :class-name="'objects-menu-button'">Добавить объект</Button>
@@ -65,6 +67,18 @@ export default {
   position: absolute;
   width: 100%;
   bottom: 0;
+}
+
+.objects-menu-item-counter {
+  background-color: #182d2d;
+  color: white;
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  padding: 5px;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: bold;
 }
 
 </style>
