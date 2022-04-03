@@ -73,5 +73,8 @@ body {
 .modal-form > p {
   color: #555555;
   font-size: 14px;
+  text-align: center;
+  padding-right: 20px;
+  padding-bottom: 20px;
 }
 </style>
