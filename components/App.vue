@@ -14,14 +14,12 @@
   </div>
 </template>
 
-
 <script>
 import Button from "./Button";
 import Modal from "./Modal";
 import ObjectsMenu from "./ObjectsMenu";
 import SavedObjects from "./SavedObjects";
 import ObjectForm from "./ObjectForm";
-
 
 export default {
   components: {ObjectForm, SavedObjects, ObjectsMenu, Modal, Button},
@@ -35,10 +33,6 @@ export default {
       return this.$store.getters["objects/getObjects"];
     }
   },
-  // mounted() {
-  //   console.log('mpunted')
-  //   this.$store.commit('objects/setChosenObject', this.objects[0].name)
-  // },
   methods: {
     onAddButtonClick() {
       this.seen = true;
@@ -66,7 +60,7 @@ body {
   align-items: center;
 }
 .dark {
-  background-color: #555555;
+  background-color: #383838;
 }
 
 .modal-form {

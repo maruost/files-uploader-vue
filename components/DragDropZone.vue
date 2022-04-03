@@ -27,7 +27,7 @@
                     :name="preview.name"
                     :on-menu-item-delete="deleteUploadFile"
                     :delete-button="preview.status !== 'loading'">
-            <img :id="preview.name" width="20px" height="20px" :ref="preview.name" :src="preview.img"/>
+            <div :id="preview.name" :ref="preview.name" :style="{ backgroundImage: `url(${preview.img})` }" class="file-preview"></div>
             <div v-if="preview.status === 'loading'" class="file-spinner"></div>
           </MenuItem>
         </template>
@@ -38,7 +38,7 @@
 
 <script>
 import { v4 as uuidv4 } from 'uuid';
-import {fakeRequest, generateUUIDs, getRandomNumber, parseState} from "./tools";
+import {fakeRequest, generateUUIDs, getRandomNumber} from "./tools";
 import MenuItem from "./MenuItem";
 
 export default {
@@ -56,9 +56,6 @@ export default {
     onDeleteFile: Function,
     updateUploadStatus: Function,
   },
-  mounted() {
-    console.log('updates')
-  },
   methods: {
     changeClass(className) {
       this.className = className;
@@ -68,7 +65,6 @@ export default {
       const files = this.handleFilesToUpload([...event.dataTransfer.files]);
       this.uploadFiles(files, 2, this.handleUploadFile, this.handleUploadAll);
     },
-
     handleFilesToUpload(files) {
       const filesToUpload = files.map(file => {
         return {
@@ -82,12 +78,12 @@ export default {
               const reader = new FileReader();
               reader.onload = (e) => {
                 const img = this.$refs[file.name];
-                img[0].src = e.target.result;
+                img[0].style.backgroundImage = `url(${e.target.result})`;
                 const prev = this.previews.find(prev => prev.name === file.name);
                 prev.img = e.target.result;
               }
               reader.readAsDataURL(file.file);
-            }
+        }
       });
       return filesToUpload;
     },
@@ -134,7 +130,7 @@ export default {
     },
     handleInputChange(e) {
       const files = this.handleFilesToUpload([...e.target.files]);
-      this.uploadFiles(files, 2, this.handleUploadAll);
+      this.uploadFiles(files, 2, this.handleUploadFile, this.handleUploadAll);
     }
   }
 }
@@ -166,6 +162,13 @@ export default {
   background-position: center;
   width: 50px;
   height: 50px;
+}
+
+.file-preview {
+  background-size: cover;
+  background-position: center;
+  width: 20px;
+  height: 20px;
 }
 
 .dropzone-input {

@@ -1,15 +1,15 @@
 <template>
-  <div :key="currentObject.name" v-show="chosenObject.name === id" class="object-form">
-    <h2 class="object-form-title">{{currentObject.name}}</h2>
+  <div :key="id" v-show="chosenObject.name === id" class="object-form">
+    <h2 class="object-form-title">{{id}}</h2>
     <DragDropZone :multiple="true" :onUpload="setUpdatedObject" :onDeleteFile="deleteFileFromObject" :update-upload-status="setButtonView"/>
-    <Button v-if='isSaveButtonShown && currentObject.files_ids.length' :on-click="onSubmit" :class-name="'object-form-button'">Сохранить</Button>
+    <Button v-if='isSaveButtonShown && chosenObject.files_ids.length' :on-click="onSubmit" :class-name="'object-form-button'">Сохранить</Button>
   </div>
 </template>
 
 <script>
 import DragDropZone from "./DragDropZone";
 import Button from "./Button";
-import {parseState} from "./tools";
+
 export default {
   components: {Button, DragDropZone},
   props: {
@@ -25,9 +25,6 @@ export default {
     chosenObject() {
       return this.$store.getters['objects/getChosenObject'];
     },
-    currentObject() {
-      return this.objects.find(object => object.name === this.id);
-    },
     objects() {
       return this.$store.getters["objects/getObjects"]
     },
@@ -36,15 +33,13 @@ export default {
 
   methods: {
     setUpdatedObject(updatedObjectIds) {
-      const toUpdate = {name: this.chosenObject.name, files_ids: updatedObjectIds};
+      const toUpdate = {name: this.id, files_ids: updatedObjectIds};
       this.$store.commit('objects/addObjectFiles',
         toUpdate);
-      // if (toUpdate.files_ids.length)
-      //   this.isSaveButtonShown = true;
     },
     onSubmit() {
-      this.$store.commit('objects/saveObject', this.chosenObject);
-      this.$store.commit('objects/deleteObject', this.chosenObject.name);
+      this.$store.commit('objects/saveObject', this.id);
+      this.$store.commit('objects/deleteObject', this.id);
       if (this.objects.length)
         this.chooseObject(this.objects[0].name);
       else
@@ -54,7 +49,7 @@ export default {
       this.$store.commit("objects/setChosenObject", id);
     },
     deleteFileFromObject(fileId) {
-      this.$store.commit('objects/deleteObjectFile', {name: this.chosenObject.name, fileId});
+      this.$store.commit('objects/deleteObjectFile', {name: this.id, fileId});
     },
     setButtonView(status) {
       this.isSaveButtonShown = !status;

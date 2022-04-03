@@ -34,12 +34,13 @@ export const mutations = {
     const objectToUpdate = state.objects.find(object => object.name === updatedObject.name);
     objectToUpdate.files_ids.push(updatedObject.files_ids)
   },
-  deleteObjectFile: (state, object) => {
-    const obj = state.objects.find(object => object.name === object.name);
-    obj.files_ids = obj.files_ids.filter(file => file[0] !== object.fileId);
-    console.log(obj, object.fileId);
+  deleteObjectFile: (state, objectToUpdate) => {
+    const obj = state.objects.find(object => object.name === objectToUpdate.name);
+    obj.files_ids = obj.files_ids.filter(file => file[0] !== objectToUpdate.fileId);
+    console.log(obj, objectToUpdate.fileId);
   },
-  saveObject: (state, savedObject) => {
+  saveObject: (state, savedObjectId) => {
+    const savedObject = state.objects.find(object => object.name === savedObjectId);
     state.savedObjects.push(savedObject);
   },
 }
